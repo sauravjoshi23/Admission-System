@@ -67,3 +67,89 @@ def add_Mechanical(request):
 
 def add_Electronics(request):
     return add_item(request, ElectronicsForm)
+
+
+def edit_item(request, pk, model, cls):
+    item = get_object_or_404(model, pk=pk)
+
+    if request.method == "POST":
+        form = cls(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = cls(instance=item)
+
+        return render(request, 'edit_item.html', {'form': form})
+
+
+
+def edit_Computer(request, pk):
+    return edit_item(request, pk, Computer, ComputerForm)
+
+
+def edit_IT(request, pk):
+    return edit_item(request, pk, IT, ITForm)
+
+
+def edit_Mechanical(request, pk):
+    return edit_item(request, pk, Mechanical, MechanicalForm)
+
+def edit_Electronics(request, pk):
+    return edit_item(request, pk, Electronics, ElectronicsForm)
+
+
+def delete_Computer(request, pk):
+
+    template = 'index.html'
+    Computer.objects.filter(id=pk).delete()
+
+    items = Computer.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)
+
+
+def delete_IT(request, pk):
+
+    template = 'index.html'
+    IT.objects.filter(id=pk).delete()
+
+    items = IT.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)
+
+
+def delete_Mechanical(request, pk):
+
+    template = 'index.html'
+    Mechanical.objects.filter(id=pk).delete()
+
+    items = Mechanical.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)
+
+
+def delete_Electronics(request, pk):
+
+    template = 'index.html'
+    Electronics.objects.filter(id=pk).delete()
+
+    items = Electronics.objects.all()
+
+    context = {
+        'items': items,
+    }
+
+    return render(request, template, context)

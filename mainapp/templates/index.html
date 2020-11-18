@@ -48,6 +48,29 @@
         <td>{{ item.status }}</td>
         <td>{{ item.number }}</td>
 
+        <!-- <h1>{{ header }}</h1> -->
+        {% if header == "Computer Department" %}
+        <td>
+            <a href="{% url 'edit_Computer' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_Computer' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header == "IT Department" %}
+        <td>
+            <a href="{% url 'edit_IT' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_IT' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header == "Mechanical Department" %}
+        <td>
+            <a href="{% url 'edit_Mechanical' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_Mechanical' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif header == "Electronics Department" %}
+        <td>
+            <a href="{% url 'edit_Electronics' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_Electronics' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% endif %}
+
       </tr>
 
       {% endfor %}
