@@ -5,5 +5,5 @@
 /* } */
 
 .container{
-    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(../images/qbkls.png);
+    background: linear-gradient(rgba(255,255,255,1), rgba(255,255,255,1)), url(../images/qbkls.png);
 }
