@@ -1,12 +1,65 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
+from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
+def registerPage(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request, 'Account was created for ' + user)
+
+                return redirect('login')
+            
+
+        context = {'form':form}
+        return render(request, 'register.html', context)
+
+def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password =request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+            else:
+                messages.info(request, 'Username OR password is incorrect')
+
+        context = {}
+        return render(request, 'login.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+
+
+
+
+@login_required(login_url='login')
 def index(request):
 	return render(request, 'index.html')
 
+@login_required(login_url='login')
 def display_Computer(request):
 	items = Computer.objects.all()
 	context = {
@@ -15,6 +68,7 @@ def display_Computer(request):
 	}
 	return render(request, 'index.html', context)
 
+@login_required(login_url='login')
 def display_IT(request):
 	items = IT.objects.all()
 	context = {
@@ -23,6 +77,7 @@ def display_IT(request):
 	}
 	return render(request, 'index.html', context)
 
+@login_required(login_url='login')
 def display_Mechanical(request):
 	items = Mechanical.objects.all()
 	context = {
@@ -31,6 +86,7 @@ def display_Mechanical(request):
 	}
 	return render(request, 'index.html', context)
 
+@login_required(login_url='login')
 def display_Electronics(request):
 	items = Electronics.objects.all()
 	context = {
@@ -39,7 +95,7 @@ def display_Electronics(request):
 	}
 	return render(request, 'index.html', context)
 
-
+@login_required(login_url='login')
 def add_Computer(request):
     if request.method == "POST":
         form = ComputerForm(request.POST)
@@ -52,7 +108,7 @@ def add_Computer(request):
         form = ComputerForm()
         return render(request, 'add_new.html', {'form' : form})
 
-
+@login_required(login_url='login')
 def add_IT(request):
     if request.method == "POST":
         form = ITForm(request.POST)
@@ -65,7 +121,7 @@ def add_IT(request):
         form = ITForm()
         return render(request, 'add_new.html', {'form' : form})
 
-
+@login_required(login_url='login')
 def add_Mechanical(request):
     if request.method == "POST":
         form = MechanicalForm(request.POST)
@@ -78,7 +134,7 @@ def add_Mechanical(request):
         form = MechanicalForm()
         return render(request, 'add_new.html', {'form' : form})
 
-
+@login_required(login_url='login')
 def add_Electronics(request):
     if request.method == "POST":
         form = ElectronicsForm(request.POST)
@@ -91,7 +147,7 @@ def add_Electronics(request):
         form = ElectronicsForm()
         return render(request, 'add_new.html', {'form' : form})
 
-
+@login_required(login_url='login')
 def edit_Computer(request, pk):
     item = get_object_or_404(Computer, pk=pk)
 
@@ -105,6 +161,7 @@ def edit_Computer(request, pk):
 
         return render(request, 'edit_item.html', {'form': form})
 
+@login_required(login_url='login')
 def edit_IT(request, pk):
     item = get_object_or_404(IT, pk=pk)
 
@@ -118,7 +175,7 @@ def edit_IT(request, pk):
 
         return render(request, 'edit_item.html', {'form': form})
 
-
+@login_required(login_url='login')
 def edit_Mechanical(request, pk):
     item = get_object_or_404(Mechanical, pk=pk)
 
@@ -132,6 +189,7 @@ def edit_Mechanical(request, pk):
 
         return render(request, 'edit_item.html', {'form': form})
 
+@login_required(login_url='login')
 def edit_Electronics(request, pk):
     item = get_object_or_404(Electronics, pk=pk)
 
@@ -145,7 +203,7 @@ def edit_Electronics(request, pk):
 
         return render(request, 'edit_item.html', {'form': form})
 
-
+@login_required(login_url='login')
 def delete_Computer(request, pk):
 
     Computer.objects.filter(id=pk).delete()
@@ -154,7 +212,7 @@ def delete_Computer(request, pk):
 
     return redirect('display_Computer')
 
-
+@login_required(login_url='login')
 def delete_IT(request, pk):
 
     IT.objects.filter(id=pk).delete()
@@ -163,7 +221,7 @@ def delete_IT(request, pk):
 
     return redirect('display_IT')
 
-
+@login_required(login_url='login')
 def delete_Mechanical(request, pk):
 
     Mechanical.objects.filter(id=pk).delete()
@@ -172,7 +230,7 @@ def delete_Mechanical(request, pk):
 
     return redirect('display_Mechanical')
 
-
+@login_required(login_url='login')
 def delete_Electronics(request, pk):
 
     Electronics.objects.filter(id=pk).delete()
