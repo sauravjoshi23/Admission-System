@@ -40,116 +40,143 @@ def display_Electronics(request):
 	return render(request, 'index.html', context)
 
 
-def add_item(request, cls):
+def add_Computer(request):
     if request.method == "POST":
-        form = cls(request.POST)
+        form = ComputerForm(request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('display_Computer')
 
     else:
-        form = cls()
+        form = ComputerForm()
         return render(request, 'add_new.html', {'form' : form})
 
 
-def add_Computer(request):
-    return add_item(request, ComputerForm)
-
-
 def add_IT(request):
-    return add_item(request, ITForm)
+    if request.method == "POST":
+        form = ITForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('display_IT')
+
+    else:
+        form = ITForm()
+        return render(request, 'add_new.html', {'form' : form})
 
 
 def add_Mechanical(request):
-    return add_item(request, MechanicalForm)
+    if request.method == "POST":
+        form = MechanicalForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('display_Mechanical')
+
+    else:
+        form = MechanicalForm()
+        return render(request, 'add_new.html', {'form' : form})
 
 
 def add_Electronics(request):
-    return add_item(request, ElectronicsForm)
+    if request.method == "POST":
+        form = ElectronicsForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('display_Electronics')
+
+    else:
+        form = ElectronicsForm()
+        return render(request, 'add_new.html', {'form' : form})
 
 
-def edit_item(request, pk, model, cls):
-    item = get_object_or_404(model, pk=pk)
+def edit_Computer(request, pk):
+    item = get_object_or_404(Computer, pk=pk)
 
     if request.method == "POST":
-        form = cls(request.POST, instance=item)
+        form = ComputerForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             return redirect('display_Computer')
     else:
-        form = cls(instance=item)
+        form = ComputerForm(instance=item)
+
+        return render(request, 'edit_item.html', {'form': form})
+
+def edit_IT(request, pk):
+    item = get_object_or_404(IT, pk=pk)
+
+    if request.method == "POST":
+        form = ITForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('display_IT')
+    else:
+        form = ITForm(instance=item)
 
         return render(request, 'edit_item.html', {'form': form})
 
 
-
-def edit_Computer(request, pk):
-    return edit_item(request, pk, Computer, ComputerForm)
-
-
-def edit_IT(request, pk):
-    return edit_item(request, pk, IT, ITForm)
-
-
 def edit_Mechanical(request, pk):
-    return edit_item(request, pk, Mechanical, MechanicalForm)
+    item = get_object_or_404(Mechanical, pk=pk)
+
+    if request.method == "POST":
+        form = MechanicalForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('display_Mechanical')
+    else:
+        form = MechanicalForm(instance=item)
+
+        return render(request, 'edit_item.html', {'form': form})
 
 def edit_Electronics(request, pk):
-    return edit_item(request, pk, Electronics, ElectronicsForm)
+    item = get_object_or_404(Electronics, pk=pk)
+
+    if request.method == "POST":
+        form = ElectronicsForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('display_Electronics')
+    else:
+        form = ElectronicsForm(instance=item)
+
+        return render(request, 'edit_item.html', {'form': form})
 
 
 def delete_Computer(request, pk):
 
-    template = 'index.html'
     Computer.objects.filter(id=pk).delete()
 
     items = Computer.objects.all()
 
-    context = {
-        'items': items,
-    }
-
-    return render(request, template, context)
+    return redirect('display_Computer')
 
 
 def delete_IT(request, pk):
 
-    template = 'index.html'
     IT.objects.filter(id=pk).delete()
 
     items = IT.objects.all()
 
-    context = {
-        'items': items,
-    }
-
-    return render(request, template, context)
+    return redirect('display_IT')
 
 
 def delete_Mechanical(request, pk):
 
-    template = 'index.html'
     Mechanical.objects.filter(id=pk).delete()
 
     items = Mechanical.objects.all()
 
-    context = {
-        'items': items,
-    }
-
-    return render(request, template, context)
+    return redirect('display_Mechanical')
 
 
 def delete_Electronics(request, pk):
 
-    template = 'index.html'
     Electronics.objects.filter(id=pk).delete()
 
     items = Electronics.objects.all()
 
-    context = {
-        'items': items,
-    }
-
-    return render(request, template, context)
+    return redirect('display_Electronics')
