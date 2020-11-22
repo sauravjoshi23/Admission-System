@@ -1,0 +1,9 @@
+/* body{ */
+    /* background: url(../images/qbkls.png) repeat 0 50%; */
+    /* background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(../images/qbkls.png); */
+    /* filter:alpha(opacity=50); */
+/* } */
+
+.container{
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(../images/qbkls.png);
+}
