@@ -76,7 +76,7 @@ def edit_item(request, pk, model, cls):
         form = cls(request.POST, instance=item)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('display_Computer')
     else:
         form = cls(instance=item)
 
