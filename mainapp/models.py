@@ -15,6 +15,7 @@ class Engineering(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['-percentage']
 
     def __str__(self):
         return 'Name: {0} Percentage: {1}'.format(self.name, self.percentage)
