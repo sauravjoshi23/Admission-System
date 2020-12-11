@@ -6,6 +6,7 @@ urlpatterns =[
     url(r'^register/$', registerPage, name='register'),
     url(r'^login/$', loginPage, name='login'),
     url(r'^logout/$', logoutUser, name='logout'),
+    url(r'^invalid/$', invalid, name='invalid'),
 
 	url(r'^$', index, name='index'),
 	url(r'^Computer_Engineering$', display_Computer, name='display_Computer'),
