@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-
 # Create your views here.
 
 def registerPage(request):
@@ -60,6 +59,10 @@ def index(request):
 	return render(request, 'index.html')
 
 @login_required(login_url='login')
+def invalid(request):
+    return render(request, 'invalid.html')
+
+@login_required(login_url='login')
 def display_Computer(request):
 	items = Computer.objects.all()
 	context = {
@@ -99,10 +102,20 @@ def display_Electronics(request):
 def add_Computer(request):
     if request.method == "POST":
         form = ComputerForm(request.POST)
+        data = request.POST.dict()
+        name = data.get("name")
+        percentage = data.get("percentage")
+        status = data.get("status")
+        #print(status, name, percentage)
+        #print(request.user.id)
+
 
         if form.is_valid():
-            form.save()
-            return redirect('display_Computer')
+            if status == "Admit" and request.user.id != 2:
+                return redirect('invalid')
+            else: 
+                form.save()
+                return redirect('display_Computer')
 
     else:
         form = ComputerForm()
@@ -112,10 +125,19 @@ def add_Computer(request):
 def add_IT(request):
     if request.method == "POST":
         form = ITForm(request.POST)
+        data = request.POST.dict()
+        name = data.get("name")
+        percentage = data.get("percentage")
+        status = data.get("status")
+        #print(status, name, percentage)
+        #print(request.user.id)
 
         if form.is_valid():
-            form.save()
-            return redirect('display_IT')
+            if status == "Admit" and request.user.id != 2:
+                return redirect('invalid')
+            else: 
+                form.save()
+                return redirect('display_IT')
 
     else:
         form = ITForm()
@@ -125,10 +147,19 @@ def add_IT(request):
 def add_Mechanical(request):
     if request.method == "POST":
         form = MechanicalForm(request.POST)
+        data = request.POST.dict()
+        name = data.get("name")
+        percentage = data.get("percentage")
+        status = data.get("status")
+        #print(status, name, percentage)
+        #print(request.user.id)
 
         if form.is_valid():
-            form.save()
-            return redirect('display_Mechanical')
+            if status == "Admit" and request.user.id != 2:
+                return redirect('invalid')
+            else: 
+                form.save()
+                return redirect('display_Mechanical')
 
     else:
         form = MechanicalForm()
@@ -138,10 +169,19 @@ def add_Mechanical(request):
 def add_Electronics(request):
     if request.method == "POST":
         form = ElectronicsForm(request.POST)
+        data = request.POST.dict()
+        name = data.get("name")
+        percentage = data.get("percentage")
+        status = data.get("status")
+        #print(status, name, percentage)
+        #print(request.user.id)
 
         if form.is_valid():
-            form.save()
-            return redirect('display_Electronics')
+            if status == "Admit" and request.user.id != 2:
+                return redirect('invalid')
+            else: 
+                form.save()
+                return redirect('display_Electronics')
 
     else:
         form = ElectronicsForm()
