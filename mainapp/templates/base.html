@@ -25,6 +25,12 @@
       <li class="nav-item ">
         <a class="nav-link" href="{% url 'index' %}" style="font-size: large;">Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item ">
+        <h4 class="nav-link" style="font-size: large;">Welcome {{user}} <span class="sr-only">(current)</span></h4>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="{% url 'logout' %}" style="font-size: large;">Logout <span class="sr-only">(current)</span></a>
+      </li>
       <!-- <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li> -->
