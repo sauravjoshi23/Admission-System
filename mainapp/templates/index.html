@@ -50,22 +50,22 @@
         <td>{{ item.number }}</td>
 
         <!-- <h1>{{ header }}</h1> -->
-        {% if header == "Computer Department" %}
+        {% if header == "Computer Department" and user.id == 2 %}
         <td>
             <a href="{% url 'edit_Computer' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
             <a href="{% url 'delete_Computer' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
         </td>
-        {% elif header == "IT Department" %}
+        {% elif header == "IT Department" and user.id == 2 %}
         <td>
             <a href="{% url 'edit_IT' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
             <a href="{% url 'delete_IT' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
         </td>
-        {% elif header == "Mechanical Department" %}
+        {% elif header == "Mechanical Department" and user.id == 2 %}
         <td>
             <a href="{% url 'edit_Mechanical' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
             <a href="{% url 'delete_Mechanical' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
         </td>
-        {% elif header == "Electronics Department" %}
+        {% elif header == "Electronics Department" and user.id == 2 %}
         <td>
             <a href="{% url 'edit_Electronics' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
             <a href="{% url 'delete_Electronics' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
