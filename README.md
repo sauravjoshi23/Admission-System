@@ -1,4 +1,7 @@
 # Admission-System
-College Admission System collects student's data in various engineering branches and performs various operations on the student data.
+Users: 
+<br>
+- Admin: Admit students into the college in the branch they have applied to(CSE, IT, MECH, etc) depending upon students data.
+- Students: Apply to various branches in a college by providing their personal data.
 
-https://admission--system.herokuapp.com/
+Link to the website: https://admission--system.herokuapp.com/
